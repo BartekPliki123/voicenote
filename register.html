@@ -5,49 +5,6 @@
     <title>Rejestracja</title>
     <!-- Łączenie zewnętrznego arkusza stylów -->
     <link rel="stylesheet" href="styles.css">
-
-    <!-- Konfiguracja Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js"></script>
-
-    <script>
-        // Konfiguracja Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyBQW6kdrp20c5D84l6CnTo93CILDspLGa0",
-            authDomain: "voice-note-33ed8.firebaseapp.com",
-            projectId: "voice-note-33ed8",
-            storageBucket: "voice-note-33ed8.appspot.com",
-            messagingSenderId: "458791587254",
-            appId: "1:458791587254:web:e6ee23dc49ba2b17f28517",
-            measurementId: "G-89M7L25EE7"
-        };
-
-        // Inicjalizacja Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-
-   // Funkcja logowania użytkownika
-function signIn() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    firebase.auth().signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            console.log("Użytkownik zalogowany:", user);
-            alert("Użytkownik zalogowany!");
-            // Tutaj możesz dodać przekierowanie do innej strony lub wykonać inne operacje po zalogowaniu
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.error("Błąd logowania:", errorMessage);
-            alert("Błąd logowania: " + errorMessage);
-        });
-}
-
-        }
-    </script>
 </head>
 <body>
     <div class="glass-effect">
@@ -56,6 +13,8 @@ function signIn() {
             <form>
                 <input type="email" id="email" placeholder="Adres email"><br>
                 <input type="password" id="password" placeholder="Hasło"><br>
+                <!-- Zaimportuj i wywołaj funkcję z pliku register.js -->
+                <script type="module" src="register.js"></script>
                 <button type="button" onclick="signUp()">Zarejestruj się</button>
             </form>
         </div>
