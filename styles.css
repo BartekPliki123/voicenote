@@ -1,0 +1,55 @@
+/* Resetowanie stylów */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Styl dla tła strony głównej */
+body {
+    background-image: url('https://3.bp.blogspot.com/-YR_hEcymhTs/UxXH4AunuoI/AAAAAAAADhU/zI2BM58VqGI/s1600/emea_vio_hbg_gbl_violetta_season_2_generic_hero_background_1920x1000_0.jpg');
+    background-size: cover;
+    color: rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+/* Styl dla przezroczystej warstwy */
+.glass-effect {
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Styl dla tytułu */
+.title {
+    font-size: 48px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Styl dla przycisków */
+.button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: rgba(200, 200, 200, 0.7);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.login {
+    background-color: #3498db;
+    color: white;
+}
+
+.register {
+    background-color: #2ecc71;
+    color: white;
+}
