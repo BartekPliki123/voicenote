@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Voice note</title>
+    <!-- Łączenie zewnętrznego arkusza stylów -->
+   <link rel="stylesheet" href="CSS/styles.css">
+
+    <!-- Konfiguracja Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-analytics.js"></script>
+
+    <script>
+        // Konfiguracja Firebase
+        const firebaseConfig = {
+            // ...
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+</head>
+<body>
+    <div class="glass-effect">
+        <div class="title">Voice Note</div>
+        <div class="buttons">
+            <button class="button login">Zaloguj się</button>
+            <a href="register.html" class="button register">Zarejestruj się</a>
+        </div>
+    </div>
+</body>
+</html>
