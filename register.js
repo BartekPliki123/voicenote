@@ -1,31 +1,33 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const registerBtn = document.getElementById('registerBtn');
-    const message = document.getElementById('message');
+// Importowanie funkcji Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
-    registerBtn.addEventListener('click', () => {
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+// Konfiguracja Firebase
+const firebaseConfig = {
+  // ... Twoje dane konfiguracyjne Firebase
+};
 
-        // Wysyłanie danych do serwera za pomocą fetch lub XMLHttpRequest
-        fetch('/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, password })
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Otrzymanie odpowiedzi z serwera
-            if (data.success) {
-                message.textContent = 'Konto zostało utworzone!';
-            } else {
-                message.textContent = 'Wystąpił błąd podczas rejestracji.';
-            }
-        })
-        .catch(error => {
-            console.error('Błąd:', error);
-            message.textContent = 'Wystąpił błąd podczas rejestracji.';
-        });
+// Inicjalizacja Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth();
+
+// Funkcja rejestracji użytkownika
+export function signUp() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  auth.createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log("Użytkownik zarejestrowany:", user);
+      alert("Użytkownik zarejestrowany!");
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error("Błąd rejestracji:", errorMessage);
+      alert("Błąd rejestracji: " + errorMessage);
     });
-});
+}
