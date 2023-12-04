@@ -26,23 +26,26 @@
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
 
-        // Funkcja rejestracji użytkownika
-        function signUp() {
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
+   // Funkcja logowania użytkownika
+function signIn() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                    console.log("Użytkownik zarejestrowany:", user);
-                    alert("Użytkownik zarejestrowany!");
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    console.error("Błąd rejestracji:", errorMessage);
-                    alert("Błąd rejestracji: " + errorMessage);
-                });
+    firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            console.log("Użytkownik zalogowany:", user);
+            alert("Użytkownik zalogowany!");
+            // Tutaj możesz dodać przekierowanie do innej strony lub wykonać inne operacje po zalogowaniu
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error("Błąd logowania:", errorMessage);
+            alert("Błąd logowania: " + errorMessage);
+        });
+}
+
         }
     </script>
 </head>
