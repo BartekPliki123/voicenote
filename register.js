@@ -1,4 +1,3 @@
-// Obsługa rejestracji użytkownika
 const registrationForm = document.getElementById('registrationForm');
 
 registrationForm.addEventListener('submit', (e) => {
@@ -7,19 +6,27 @@ registrationForm.addEventListener('submit', (e) => {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    // Tutaj możesz dodać kod tworzący bazę danych lub przechwytywanie danych logowania
-    console.log('Email:', email);
-    console.log('Hasło:', password);
-
-    // Tutaj można dodać żądanie utworzenia bazy danych lub innych operacji, które chcesz wykonać
-
-    // Poniżej przykład zapisania danych do lokalnej tablicy użytkowników
-    const newUser = {
+    // Utworzenie obiektu zawierającego dane logowania
+    const userData = {
         email: email,
         password: password
     };
-    // Przykład dodania użytkownika do lokalnej tablicy (symulacja zapisu do bazy danych)
-    // Tutaj możesz zamiast tego użyć prawdziwej bazy danych
-    console.log('Nowy użytkownik:', newUser);
-    alert('Użytkownik zarejestrowany!');
+
+    // Wywołanie funkcji do wysłania danych logowania do skryptu PHP
+    sendLoginData(userData);
 });
+
+// Funkcja do wysłania danych logowania do skryptu PHP
+function sendLoginData(userData) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'login.php'); // Wstaw odpowiedni adres URL do Twojego skryptu PHP
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            alert('Użytkownik zarejestrowany!');
+        } else {
+            alert('Błąd podczas rejestracji.');
+        }
+    };
+    xhr.send(JSON.stringify(userData));
+}
