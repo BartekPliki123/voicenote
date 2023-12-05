@@ -1,33 +1,47 @@
-// Importowanie funkcji Firebase
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
-
 // Konfiguracja Firebase
 const firebaseConfig = {
-  // ... Twoje dane konfiguracyjne Firebase
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID",
+    measurementId: "YOUR_MEASUREMENT_ID"
 };
 
 // Inicjalizacja Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth();
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
 
-// Funkcja rejestracji użytkownika
-export function signUp() {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+// Obsługa rejestracji użytkownika
+const registrationForm = document.getElementById('registrationForm');
 
-  auth.createUserWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      console.log("Użytkownik zarejestrowany:", user);
-      alert("Użytkownik zarejestrowany!");
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error("Błąd rejestracji:", errorMessage);
-      alert("Błąd rejestracji: " + errorMessage);
-    });
-}
+registrationForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            console.log('Użytkownik zarejestrowany:', user);
+
+            // Dodawanie danych do bazy danych
+            db.collection('users').doc(user.uid).set({
+                email: email,
+                // Dodaj dodatkowe dane użytkownika, jeśli potrzebujesz
+            }).then(() => {
+                console.log('Dane użytkownika dodane do bazy danych');
+                alert('Użytkownik zarejestrowany!');
+            }).catch((error) => {
+                console.error('Błąd dodawania danych do bazy danych:', error);
+            });
+        })
+        .catch((error) => {
+            const errorMessage = error.message;
+            console.error('Błąd rejestracji:', errorMessage);
+            alert('Błąd rejestracji: ' + errorMessage);
+        });
+});
