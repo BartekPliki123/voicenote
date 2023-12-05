@@ -1,19 +1,30 @@
-<?php
-// Odczytanie danych z formularza
-$username = $_POST['username'];
-$password = $_POST['password'];
+const registrationForm = document.getElementById('registrationForm');
 
-// Sprawdzenie poprawności danych - to tylko przykład, bezpieczne uwierzytelnianie wymaga znacznie więcej logiki
-if ($username === 'admin' && $password === 'password') {
-    // Dodanie danych logowania do pliku
-    $file = 'loginy.txt';
-    $data = $username . ':' . $password . PHP_EOL;
-    file_put_contents($file, $data, FILE_APPEND);
+registrationForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-    // Przekierowanie po zalogowaniu
-    header("Location: panel.php");
-    exit();
-} else {
-    echo "Błędne dane logowania";
+    const userData = {
+        username: email,
+        password: password
+    };
+
+    sendLoginData(userData);
+});
+
+function sendLoginData(userData) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'login.php');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            alert(xhr.responseText);
+        } else {
+            alert('Błąd podczas rejestracji.');
+        }
+    };
+    const encodedData = `username=${encodeURIComponent(userData.username)}&password=${encodeURIComponent(userData.password)}`;
+    xhr.send(encodedData);
 }
-?>
