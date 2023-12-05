@@ -6,27 +6,25 @@ registrationForm.addEventListener('submit', (e) => {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    // Utworzenie obiektu zawierającego dane logowania
     const userData = {
-        email: email,
+        username: email,
         password: password
     };
 
-    // Wywołanie funkcji do wysłania danych logowania do skryptu PHP
     sendLoginData(userData);
 });
 
-// Funkcja do wysłania danych logowania do skryptu PHP
 function sendLoginData(userData) {
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'login.php'); // Wstaw odpowiedni adres URL do Twojego skryptu PHP
-    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.open('POST', 'login.php');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function() {
         if (xhr.status === 200) {
-            alert('Użytkownik zarejestrowany!');
+            alert(xhr.responseText);
         } else {
             alert('Błąd podczas rejestracji.');
         }
     };
-    xhr.send(JSON.stringify(userData));
+    const encodedData = `username=${encodeURIComponent(userData.username)}&password=${encodeURIComponent(userData.password)}`;
+    xhr.send(encodedData);
 }
